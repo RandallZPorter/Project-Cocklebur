@@ -210,4 +210,4 @@ Set-Content -Path $outPath -Value $outValue
 
 $compilePath = $path + $out #"out.exe"
 "gcc $outPath -o $compilePath" | cmd
-#rm $outPath
+rm $outPath
