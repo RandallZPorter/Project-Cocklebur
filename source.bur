@@ -1,0 +1,106 @@
+﻿"
+	Zane did this.
+	Variable claims:
+		a, b: addOne, addOneAux, subOne, subOneAux
+		c, d: subtract, subtractAux, add, addAux
+
+"
+
+"Increment top of stack push(pop() + 1)"
+~@addOneAux
+	~$a?
+    ~$a!#0!`114?~$b?
+    ~$b! "test comments"
+    ~$a!
+	~$a!~$b!‽]addOneAux*
+    ~$a?
+    ~$b?
+    ~$a?
+    ~$b!
+    ~$a!
+	;
+~@addOne
+    @addOneAux@
+    ~$a?
+    ;
+﻿
+"Decrement top of stack push(pop() - 1)"
+~@subOneAux
+	~$a?
+    ~$a!#0!`114?~$b?
+    ~$b! "test comments"
+    ~$a!
+	~$a!~$b!‽[subOneAux*
+    ~$a?
+    ~$b?
+    ~$a?
+    ~$b!
+    ~$a!
+	;
+~@subOne
+    @subOneAux@
+    ~$a?
+    ;
+
+"subtract top two elements of stack push(pop() - pop()) "
+~@subtractAux
+	~$c?
+	~$d?
+	~$c!@subOne@~$c?
+	~$d!@subOne@~$d?
+	~$d!
+	~$c!
+	#0!~$d!‽(subtractAux*
+	;
+~@subtract
+	@subtractAux@
+	~$c?
+	~$d?
+	~$c!
+	;
+
+"add top two elements of stack push(pop() + pop()) "
+~@addAux
+	~$c?
+	~$d?
+	~$c!@addOne@~$c?
+	~$d!@subOne@~$d?
+	~$d!
+	~$c!
+	#0!~$d!‽(addAux*
+	;
+~@add
+	@addAux@
+	~$c?
+	~$d?
+	~$c!
+	;
+
+"mode top two elements of stack push(pop() % pop()) THIS IS BROKEN"
+~@modAux
+	~$e?
+	~$f?
+	~$f!~$e!@subtract@~$e?		"e -= f"
+	~$f!
+	~$e!
+	#0!~$e!‽(modAux*
+	;
+~@mod
+	@modAux@
+	@add@
+	;
+
+
+~@divisible
+	~$e?
+	~$f?
+	`?	
+	;
+
+
+~@,
+	#10%3!
+	!v	
+	;
+
+
