@@ -76,27 +76,6 @@
 	~$c!
 	;
 
-"mode top two elements of stack push(pop() % pop()) THIS IS BROKEN"
-~@modAux
-	~$e?
-	~$f?
-	~$f!~$e!@subtract@~$e?		"e -= f"
-	~$f!
-	~$e!
-	#0!~$e!‽(modAux*
-	;
-~@mod
-	@modAux@
-	@add@
-	;
-
-
-~@divisible
-	~$e?
-	~$f?
-	`?	
-	;
-
 
 ~@,
 	#10%3!
