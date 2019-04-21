@@ -1,0 +1,159 @@
+"Increment top of stack"
+~@1
+	~$a!
+	#0!
+	`114?
+	~$b?
+	~$b!
+	~$a!
+	~$b!
+	‽)1*
+	;
+
+"Decrement top of stack"
+~@2
+	~$s!
+	#0!
+	`114?
+	~$b?
+	~$b!
+	~$s!
+	~$b!
+	‽(2*
+	;
+	
+"Add top two elements together"
+~@3
+	~$a?
+	~$s?
+	@1@
+	~$a?
+	@2@
+	~$s?
+	~$s!
+	~$a!
+	~$s!
+	#0!
+	‽)3*
+	;
+	
+"Subtract top of stack from next item in stack (call 5)"
+~@4
+	~$s?
+	~$a?
+	@2@
+	~$h?
+	~$a!
+	~$s?
+	@2@
+	~$a?
+	~$h!
+	~$s?
+	~$a!
+	~$s!
+	~$s!
+	#0!
+	‽)4*
+	;
+~@5
+	@4@
+	~$myVariable?
+	;
+
+"Mod second to top item in stack by top item (call 7)"
+~@6
+	~$m?
+	~$n?
+	~$n!
+	~$m!
+	@5@
+	~$n?
+	~$n!
+	~$m!
+	~$n!
+	~$m!
+	‽)6*
+	;
+~@7
+	~$m?
+	~$n?
+	~$n!
+	~$m!
+	~$n!
+	~$m!
+	~$m0?
+	~$n0?
+	~$n!
+	~$m!
+	‽<6*
+	~$myVariable?
+	~$myVariable?
+	~$myVariable!
+	~$myVariable!
+	~$m0!
+	‽=8*
+	~$m0!
+	~$n0!
+	‽=8*
+	~$m0!
+	#1!
+	‽=8*
+	;
+~@8
+	#0!
+	;
+
+"Puts 1 on the stack if the top of the stack is prime, 0 otherwise (call 9)"
+~@9
+	~$p0?
+	#1!
+	@10@
+	~$p?
+	#1!
+	#0!
+	~$p!
+	~$p0!
+	‽=11*
+	;
+~@10
+	#1!
+	@3@
+	~$i?
+	~$p0!
+	~$i!
+	@7@
+	~$p?
+	~$p0!
+	~$i!
+	~$p!
+	#0!
+	‽)10*
+	;
+~@11
+	~$myVariable?
+	;
+
+"Find the primes (call 12)"
+~@12
+	#2!
+	@3@
+	~$z?
+	~$z!
+	@9@
+	#1!
+	‽=13*
+	~$z!
+	@12@
+	;
+~@13
+	~$z!!v
+	;
+#2!!v
+#1!
+@12@
+
+,..
+
+
+
+
