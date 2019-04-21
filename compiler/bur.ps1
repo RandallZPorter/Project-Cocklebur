@@ -184,6 +184,12 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
             $codeOut.Add("}`n`n") | Out-Null 
             break
         } '!' { 
+			#TODO: modify this switch case to follow the following rules:
+			#	case '!': pop and print the top of the stack
+			#					if char after '!' is 'v', follow the print with a newline
+			#							if char after 'v' is '.', print as ascii value
+			#					if char after '!' is '.', print as ascii value
+			# only valid print commands should be !v., !v, !., and !
             tab;$codeOut.Add("printf(`"%lf`", popD());`n") | Out-Null 
             $i++
             $x = $codeIn[$i]
