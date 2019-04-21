@@ -12,7 +12,7 @@ Function getObjectName($i) {
     while ($true){ 
         $i++
         $x = $codeIn[$i]
-        if ([char[]]'~@#‽`!?*' -notcontains $x){
+        if ([char[]]'~@#‽`!?*$' -notcontains $x){
             $objName += $x.ToString().Trim()
         } else {
             return $i, $objName
