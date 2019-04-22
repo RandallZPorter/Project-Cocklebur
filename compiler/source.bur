@@ -7,30 +7,24 @@
 "
 
 "Increment top of stack push(pop() + 1)"
-~@addOneAux
+~@addOne
 	~$a?
 	~$a!#0!`114?~$b?
 	~$a!
-	~$a!~$b!‽]addOneAux*
+	~$a!~$b!‽]addOne*
 	~$a?
 	~$b!
 	;
-~@addOne
-    @addOneAux@
-    ;
-﻿
+
 "Decrement top of stack push(pop() - 1)"
-~@subOneAux
+~@subOne
 	~$a?
     ~$a!#0!`114?~$b?
     ~$a!
-	~$a!~$b!‽[subOneAux*
+	~$a!~$b!‽[subOne*
     ~$a?
     ~$b!
 	;
-~@subOne
-    @subOneAux@
-    ;
 
 "subtract top two elements of stack push(pop() - pop()) "
 ~@subtractAux

@@ -67,7 +67,7 @@ double popM() {
     return pop(mathStack);
 }
 
-void functionaddOneAux() {
+void functionaddOne() {
 	a = popD();
 	pushD(a);
 	pushD(0);
@@ -85,17 +85,13 @@ void functionaddOneAux() {
 	pushD(a);
 	pushD(b);
 	if (popD() <= popD()){
-		functionaddOneAux();
+		functionaddOne();
 	}
 	a = popD();
 	pushD(b);
 }
 
-void functionaddOne() {
-	functionaddOneAux();
-}
-
-void functionsubOneAux() {
+void functionsubOne() {
 	a = popD();
 	pushD(a);
 	pushD(0);
@@ -113,14 +109,10 @@ void functionsubOneAux() {
 	pushD(a);
 	pushD(b);
 	if (popD() >= popD()){
-		functionsubOneAux();
+		functionsubOne();
 	}
 	a = popD();
 	pushD(b);
-}
-
-void functionsubOne() {
-	functionsubOneAux();
 }
 
 void functionsubtractAux() {
