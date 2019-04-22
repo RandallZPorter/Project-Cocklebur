@@ -3,43 +3,33 @@
 	Variable claims:
 		a, b: addOne, addOneAux, subOne, subOneAux
 		c, d: subtract, subtractAux, add, addAux
-
+		e, f: divisable, divisableTRUE, divisableFALSE, divisableELSE, divisableLOOP
 "
 
 "Increment top of stack push(pop() + 1)"
 ~@addOneAux
 	~$a?
-    ~$a!#0!`114?~$b?
-    ~$b! "test comments"
-    ~$a!
+	~$a!#0!`114?~$b?
+	~$a!
 	~$a!~$b!‽]addOneAux*
-    ~$a?
-    ~$b?
-    ~$a?
-    ~$b!
-    ~$a!
+	~$a?
+	~$b!
 	;
 ~@addOne
     @addOneAux@
-    ~$a?
     ;
 ﻿
 "Decrement top of stack push(pop() - 1)"
 ~@subOneAux
 	~$a?
     ~$a!#0!`114?~$b?
-    ~$b! "test comments"
     ~$a!
 	~$a!~$b!‽[subOneAux*
     ~$a?
-    ~$b?
-    ~$a?
     ~$b!
-    ~$a!
 	;
 ~@subOne
     @subOneAux@
-    ~$a?
     ;
 
 "subtract top two elements of stack push(pop() - pop()) "
@@ -76,10 +66,90 @@
 	~$c!
 	;
 
+"push(pop() % pop() == 0) as 0 or 1"
+~@divisableTRUE
+	~$e?
+	~$f?
+	#1!
+	;
+~@divisableFALSE
+	~$e?
+	~$f?
+	#0!
+	;
+~@divisableLOOP
+	~$e?
+	~$e!@subOne@~$e?
+	~$e!	
+	#0!~$e!‽(divisableLOOP*	
+	;
+~@divisableELSE
+	~$e?
+	~$f?
+	~$f!
+	~$e!
+	`114?
+	@divisableLOOP@
+	~$e?
+	~$e!
+	~$e!
+	#0!~$e!‽=divisableTRUE*
+	#0!~$e!‽(divisableFALSE*
+	#0!~$e!‽)divisableFALSE*
+	;
+~@divisable
+	~$e?
+	~$f?
+	~$f!
+	~$e!
+	#0!~$f!‽=divisableTRUE*
+	#1!~$f!‽=divisableTRUE*
+	#1!~$f!‽(divisableELSE*
+	;
+
+
+"push(pop() is prime) as 0 or 1"
+~@primeTRUE
+	#1!
+	;
+~@primeFALSE
+	#0!
+	;
+~@primeLOOP
+	~$g?
+	~$h?
+	~$h!@addOne@~$h?
+	~$h!
+	~$g!
+	~$h!~$g!@divisable@~$i?
+	#0!~$i!‽=primeLOOP*
+	;
+~@prime
+	~$g?
+	#1!
+	~$g!
+	@primeLOOP@
+	~$g?
+	~$h?
+	~$h!~$g!‽=primeTRUE*
+	~$h!~$g!‽)primeFALSE*
+	~$h!~$g!‽(primeFALSE*
+	;
+
+~@loopPRINT
+	~$x!!v
+	;
+~@loop
+	~$x?
+	~$x!@prime@#1!‽=loopPRINT*
+	~$x!@addOne@~$x?
+	~$x!
+	@loop@
+	;
 
 ~@,
-	#10%3!
-	!v	
+	#2!
+	@loop@
 	;
 
 
