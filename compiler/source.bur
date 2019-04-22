@@ -1,9 +1,11 @@
 ﻿"
 	Zane did this.
 	Variable claims:
-		a, b: addOne, addOneAux, subOne, subOneAux
+		a, b: addOne, subOne
 		c, d: subtract, subtractAux, add, addAux
 		e, f: divisable, divisableTRUE, divisableFALSE, divisableELSE, divisableLOOP
+		g, h, i: prime, primeLOOP
+		x: loop, loopPrint
 "
 
 "Increment top of stack push(pop() + 1)"
