@@ -190,8 +190,17 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
 			#							if char after 'v' is '.', print as ascii value
 			#					if char after '!' is '.', print as ascii value
 			# only valid print commands should be !v., !v, !., and !
-            tab;$codeOut.Add("printf(`"%lf`", popD());`n") | Out-Null 
-            $i++
+			tab;$codeOut.Add("
+			printVar = popD();
+			if (printVar == (int)printVar){
+				printf(`"%d`", (int)printVar);
+			} else {
+				printf(`"%lf`", printVar);
+			}
+			`n") | Out-Null
+			#tab;$codeOut.Add("printf(`"%lf`", popD());`n") | Out-Null 
+
+			$i++
             $x = $codeIn[$i]
             if ($x -eq 'v'){
                 tab;$codeOut.Add("printf(`"\n`");`n") | Out-Null
@@ -204,6 +213,7 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
 
 $variables.Add("con0") | Out-Null
 $variables.Add("con1") | Out-Null
+$variables.Add("printVar") | Out-Null
 $variables | ForEach-Object -Process {
     $i = $codeOut.IndexOf("`n//Functions")
     $declaration = "double $_ = 0.0;`n"

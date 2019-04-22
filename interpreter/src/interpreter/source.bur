@@ -142,14 +142,13 @@
 ~@loop
 	~$x?
 	~$x!@prime@#1!‽=loopPRINT*
-	~$x!@addOne@@addOne@~$x?
+	~$x!@addOne@~$x?
 	~$x!
 	@loop@
 	;
 
 ~@,
-	#2!!v
-	#3!
+	#2!
 	@loop@
 	;
 

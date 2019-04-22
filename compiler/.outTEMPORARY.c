@@ -16,6 +16,7 @@ double i = 0.0;
 double x = 0.0;
 double con0 = 0.0;
 double con1 = 0.0;
+double printVar = 0.0;
 
 //Functions
 struct Stack { 
@@ -307,7 +308,14 @@ void functionprime() {
 
 void functionloopPRINT() {
 	pushD(x);
-	printf("%lf", popD());
+	
+			printVar = popD();
+			if (printVar == (int)printVar){
+				printf("%d", (int)printVar);
+			} else {
+				printf("%lf", printVar);
+			}
+			
 	printf("\n");
 	fflush(stdout);
 }
@@ -322,6 +330,7 @@ void functionloop() {
 	}
 	pushD(x);
 	functionaddOne();
+	functionaddOne();
 	x = popD();
 	pushD(x);
 	functionloop();
@@ -332,6 +341,17 @@ void main() {
 	stack = createStack(1000);
 	mathStack = createStack(1000);
 	pushD(2);
+	
+			printVar = popD();
+			if (printVar == (int)printVar){
+				printf("%d", (int)printVar);
+			} else {
+				printf("%lf", printVar);
+			}
+			
+	printf("\n");
+	fflush(stdout);
+	pushD(3);
 	functionloop();
 }
 
