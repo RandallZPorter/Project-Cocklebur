@@ -11,7 +11,7 @@
 "Increment top of stack push(pop() + 1)"
 ~@addOne
 	~$a?
-	~$a!#0!`114?~$b?
+	~$a!#0!`?~$b?
 	~$a!
 	~$a!~$b!‽]addOne*
 	~$a?
@@ -21,7 +21,7 @@
 "Decrement top of stack push(pop() - 1)"
 ~@subOne
 	~$a?
-    ~$a!#0!`114?~$b?
+    ~$a!#0!`?~$b?
     ~$a!
 	~$a!~$b!‽[subOne*
     ~$a?

@@ -196,21 +196,29 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
             $codeOut.Add("}`n`n") | Out-Null 
             break
         } '!' { 
-			#TODO: modify this switch case to follow the following rules:
-			#	case '!': pop and print the top of the stack
-			#					if char after '!' is 'v', follow the print with a newline
-			#							if char after 'v' is '.', print as ascii value
-			#					if char after '!' is '.', print as ascii value
-			# only valid print commands should be !v., !v, !., and !
-			tab;$codeOut.Add("
-			printVar = popD();
-			if (printVar == (int)printVar){
-				printf(`"%d`", (int)printVar);
+			$i += 2
+			$x = $codeIn[$i]
+			$isAscii = $x -eq '.'
+			$i--
+			$x = $codeIn[$i]
+			$isAscii = $isAscii -or ($x -eq '.')
+			$i--
+
+			if ($isAscii){
+				tab;$codeOut.Add("
+				printVar = popD();
+				printf(`"%c`", (char)(int)printVar);
+				`n") | Out-Null
 			} else {
-				printf(`"%lf`", printVar);
+				tab;$codeOut.Add("
+				printVar = popD();
+				if (printVar == (int)printVar){
+					printf(`"%d`", (int)printVar);
+				} else {
+					printf(`"%lf`", printVar);
+				}
+				`n") | Out-Null
 			}
-			`n") | Out-Null
-			#tab;$codeOut.Add("printf(`"%lf`", popD());`n") | Out-Null 
 
 			$i++
             $x = $codeIn[$i]
