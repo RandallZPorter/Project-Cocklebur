@@ -101,6 +101,8 @@ double popM() {
 $indent = $false
 $inMain = $false
 [System.Collections.ArrayList]$variables = @()
+$funcNameDeclared = ""
+[System.Collections.ArrayList]$infiniteLoops = @()
 for ($i = 0; $i -lt $codeIn.Count; $i++){
     $x = $codeIn[$i]
     switch ($x){
@@ -111,6 +113,7 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
             $i = $retObject[0]
             if ($x -eq '@') {
                 $funcName = $retObject[1]
+				$funcNameDeclared = $funcName
                 if ($funcName -eq ','){
                     $codeOut.Add("`nvoid main() {`n") | Out-Null
                     $codeOut.Add("`tstack = createStack(1000);`n") | Out-Null
@@ -139,8 +142,17 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
         } '@' { 
             $retObject = getObjectName $i
             $i = $retObject[0]
-            tab;$codeOut.Add("function" + $retObject[1] + "();`n") | Out-Null 
-            break
+			$funcName = $retObject[1]
+			Write-Host "$funcNameDeclared called $funcName"
+			if ($funcName -eq $funcNameDeclared){
+				$n = $codeOut.IndexOf("void function$funcName() {`n")
+		    	$declaration = "while (1){`n"
+    			$codeOut.Insert($n + 1, $declaration)
+	            tab;$codeOut.Add("}`n") | Out-Null
+			} else {
+	            tab;$codeOut.Add("function" + $funcName + "();`n") | Out-Null 
+    		}
+	        break
         } '#' { 
             $retObject = getObjectName $i
             $i = $retObject[0]

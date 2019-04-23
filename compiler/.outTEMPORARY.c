@@ -313,6 +313,7 @@ void functionloopPRINT() {
 }
 
 void functionloop() {
+while (1){
 	x = popD();
 	pushD(x);
 	functionprime();
@@ -325,7 +326,7 @@ void functionloop() {
 	functionaddOne();
 	x = popD();
 	pushD(x);
-	functionloop();
+	}
 }
 
 
