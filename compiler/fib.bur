@@ -1,0 +1,76 @@
+﻿"
+	Zane did this.
+"
+
+"Increment top of stack push(pop() + 1)"
+~@addOne
+	~$a?
+	~$a!#0!`?~$b?
+	~$a!
+	~$a!~$b!‽]addOne*
+	~$a?
+	~$b!
+	;
+
+"Decrement top of stack push(pop() - 1)"
+~@subOne
+	~$a?
+    ~$a!#0!`?~$b?
+    ~$a!
+	~$a!~$b!‽[subOne*
+    ~$a?
+    ~$b!
+	;
+
+"subtract top two elements of stack push(pop() - pop()) "
+~@subtractAux
+	~$c?
+	~$d?
+	~$c!@subOne@~$c?
+	~$d!@subOne@~$d?
+	~$d!
+	~$c!
+	#0!~$d!‽(subtractAux*
+	;
+~@subtract
+	@subtractAux@
+	~$c?
+	~$d?
+	~$c!
+	;
+
+"add top two elements of stack push(pop() + pop()) "
+~@addAux
+	~$c?
+	~$d?
+	~$c!@addOne@~$c?
+	~$d!@subOne@~$d?
+	~$d!
+	~$c!
+	#0!~$d!‽(addAux*
+	;
+~@add
+	@addAux@
+	~$c?
+	~$d?
+	~$c!
+	;
+
+~@loop
+	~$x?
+	~$y?
+	~$y!!v
+	~$x!
+	~$y!
+	~$x!
+	@add@
+	@loop@
+	;
+
+~@,
+	#0!
+	#1!
+	@loop@
+	;
+
+
