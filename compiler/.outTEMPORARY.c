@@ -67,7 +67,7 @@ double popM() {
     return pop(mathStack);
 }
 
-void functionaddOne() {
+void functiona() {
 do {
 	a = popD();
 	pushD(a);
@@ -90,7 +90,7 @@ do {
 	pushD(b);
 }
 
-void functionsubOne() {
+void functionb() {
 do {
 	a = popD();
 	pushD(a);
@@ -113,15 +113,15 @@ do {
 	pushD(b);
 }
 
-void functionsubtractAux() {
+void functionc() {
 do {
 	c = popD();
 	d = popD();
 	pushD(c);
-	functionsubOne();
+	functionb();
 	c = popD();
 	pushD(d);
-	functionsubOne();
+	functionb();
 	d = popD();
 	pushD(d);
 	pushD(c);
@@ -130,22 +130,22 @@ do {
 	} while (popD() > popD());
 }
 
-void functionsubtract() {
-	functionsubtractAux();
+void functiond() {
+	functionc();
 	c = popD();
 	d = popD();
 	pushD(c);
 }
 
-void functionaddAux() {
+void functione() {
 do {
 	c = popD();
 	d = popD();
 	pushD(c);
-	functionaddOne();
+	functiona();
 	c = popD();
 	pushD(d);
-	functionsubOne();
+	functionb();
 	d = popD();
 	pushD(d);
 	pushD(c);
@@ -154,30 +154,30 @@ do {
 	} while (popD() > popD());
 }
 
-void functionadd() {
-	functionaddAux();
+void functionf() {
+	functione();
 	c = popD();
 	d = popD();
 	pushD(c);
 }
 
-void functiondivisableTRUE() {
+void functiong() {
 	e = popD();
 	f = popD();
 	pushD(1);
 }
 
-void functiondivisableFALSE() {
+void function9() {
 	e = popD();
 	f = popD();
 	pushD(0);
 }
 
-void functiondivisableLOOP() {
+void function8() {
 do {
 	e = popD();
 	pushD(e);
-	functionsubOne();
+	functionb();
 	e = popD();
 	pushD(e);
 	pushD(0);
@@ -185,7 +185,7 @@ do {
 	} while (popD() > popD());
 }
 
-void functiondivisableELSE() {
+void function7() {
 	e = popD();
 	f = popD();
 	pushD(f);
@@ -199,28 +199,28 @@ void functiondivisableELSE() {
 		pushM(con1);
 	}
 	pushD(popM());
-	functiondivisableLOOP();
+	function8();
 	e = popD();
 	pushD(e);
 	pushD(e);
 	pushD(0);
 	pushD(e);
 	if (popD() == popD()){
-		functiondivisableTRUE();
+		functiong();
 	}
 	pushD(0);
 	pushD(e);
 	if (popD() > popD()){
-		functiondivisableFALSE();
+		function9();
 	}
 	pushD(0);
 	pushD(e);
 	if (popD() < popD()){
-		functiondivisableFALSE();
+		function9();
 	}
 }
 
-void functiondivisable() {
+void function6() {
 	e = popD();
 	f = popD();
 	pushD(f);
@@ -228,71 +228,71 @@ void functiondivisable() {
 	pushD(0);
 	pushD(f);
 	if (popD() == popD()){
-		functiondivisableTRUE();
+		functiong();
 	}
 	pushD(1);
 	pushD(f);
 	if (popD() == popD()){
-		functiondivisableTRUE();
+		functiong();
 	}
 	pushD(1);
 	pushD(f);
 	if (popD() > popD()){
-		functiondivisableELSE();
+		function7();
 	}
 }
 
-void functionprimeTRUE() {
+void function5() {
 	pushD(1);
 }
 
-void functionprimeFALSE() {
+void function4() {
 	pushD(0);
 }
 
-void functionprimeLOOP() {
+void function3() {
 do {
 	g = popD();
 	h = popD();
 	pushD(h);
-	functionaddOne();
+	functiona();
 	h = popD();
 	pushD(h);
 	pushD(g);
 	pushD(h);
 	pushD(g);
-	functiondivisable();
+	function6();
 	i = popD();
 	pushD(0);
 	pushD(i);
 	} while (popD() == popD());
 }
 
-void functionprime() {
+void function2() {
 	g = popD();
 	pushD(1);
 	pushD(g);
-	functionprimeLOOP();
+	function3();
 	g = popD();
 	h = popD();
 	pushD(h);
 	pushD(g);
 	if (popD() == popD()){
-		functionprimeTRUE();
+		function5();
 	}
 	pushD(h);
 	pushD(g);
 	if (popD() < popD()){
-		functionprimeFALSE();
+		function4();
 	}
 	pushD(h);
 	pushD(g);
 	if (popD() > popD()){
-		functionprimeFALSE();
+		function4();
 	}
 }
 
-void functionloopPRINT() {
+void function1() {
 	pushD(x);
 	
 				printVar = popD();
@@ -306,18 +306,18 @@ void functionloopPRINT() {
 	fflush(stdout);
 }
 
-void functionloop() {
+void function0() {
 while (1){
 	x = popD();
 	pushD(x);
-	functionprime();
+	function2();
 	pushD(1);
 	if (popD() == popD()){
-		functionloopPRINT();
+		function1();
 	}
 	pushD(x);
-	functionaddOne();
-	functionaddOne();
+	functiona();
+	functiona();
 	x = popD();
 	pushD(x);
 	}
@@ -339,7 +339,7 @@ void main() {
 	printf("\n");
 	fflush(stdout);
 	pushD(3);
-	functionloop();
+	function0();
 }
 
 

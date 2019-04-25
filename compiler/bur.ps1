@@ -2,8 +2,8 @@
     [Parameter(Mandatory=$true)][string]$in,
     [Parameter(Mandatory=$true)][string]$out
 )
-$path = (Get-Location).ToString() + "\" #"C:\Users\s524409\Documents\44563\compiler\"
-$codeIn = [char[]](-join (Get-Content ($path + $in)))
+$path = (Get-Location).ToString() + "\"
+$codeIn = [char[]](-join (Get-Content -Path ($path + $in) -Encoding UTF8))
 [System.Collections.ArrayList]$codeOut = @()
 
 Function getObjectName($i) {
@@ -30,7 +30,7 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
     if ($x -eq '"'){
         $isComment = -not $isComment
     }
-    if (!$isComment -and $x -ne '"'){
+    if (-not $isComment -and $x -ne '"'){
         $codeOut.Add($x.ToString().Trim()) | Out-Null
     }
 }
@@ -253,6 +253,6 @@ $outPath = $path + ".outTEMPORARY.c"
 $outValue = -join $codeOut
 Set-Content -Path $outPath -Value $outValue
 
-$compilePath = $path + $out #"out.exe"
+$compilePath = $path + $out
 "gcc $outPath -o $compilePath -O3" | cmd
 #rm $outPath
