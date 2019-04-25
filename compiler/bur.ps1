@@ -2,14 +2,13 @@
     [Parameter(Mandatory=$true)][string]$in,
     [Parameter(Mandatory=$true)][string]$out
 )
-#Clear-Host
 $path = (Get-Location).ToString() + "\" #"C:\Users\s524409\Documents\44563\compiler\"
-$codeIn = [char[]](-join (Get-Content ($path + <#"source.bur"#> $in)))
+$codeIn = [char[]](-join (Get-Content ($path + $in)))
 [System.Collections.ArrayList]$codeOut = @()
 
 Function getObjectName($i) {
     $objName = ""
-    while ($true){ 
+    while ($true){
         $i++
         $x = $codeIn[$i]
         if ([char[]]'~@#‽`!?*$' -notcontains $x){
@@ -17,7 +16,7 @@ Function getObjectName($i) {
         } else {
             return $i, $objName
         }
-    } 
+    }
     return $i, $objName
 }
 
@@ -39,7 +38,7 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
 $codeIn = [char[]](-join $codeOut)
 $codeOut.Clear()
 
-$codeOut.Add(" 
+$codeOut.Add("
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -49,19 +48,19 @@ $codeOut.Add("//Variables`n") | Out-Null
 $codeOut.Add("`n//Functions") | Out-Null
 
 $codeOut.Add("
-struct Stack { 
-	int top; 
-	unsigned capacity; 
-	double* array; 
-}; 
+struct Stack {
+	int top;
+	unsigned capacity;
+	double* array;
+};
 
-struct Stack* createStack(unsigned capacity) { 
-	struct Stack* stack = (struct Stack*) malloc(sizeof(struct Stack)); 
-	stack->capacity = capacity; 
-	stack->top = -1; 
+struct Stack* createStack(unsigned capacity) {
+	struct Stack* stack = (struct Stack*) malloc(sizeof(struct Stack));
+	stack->capacity = capacity;
+	stack->top = -1;
 	stack->array = (double*) malloc(stack->capacity * sizeof(double)); 
-	return stack; 
-} 
+	return stack;
+}
 
 int isFull(struct Stack* stack) { 
     return stack->top == stack->capacity - 1; 
@@ -77,7 +76,7 @@ void push(struct Stack* stack, double item) {
 } 
 
 double pop(struct Stack* stack) { 
-	if (isEmpty(stack)){ return /*INT_MIN;*/0.0; }
+	if (isEmpty(stack)){ return 0.0; }
 	return stack->array[stack->top--]; 
 } 
 
@@ -182,11 +181,10 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
 				$n = $codeOut.IndexOf("void function$funcName() {`n")
 		    	$declaration = "do {`n"
     			$codeOut.Insert($n + 1, $declaration)
-	            #tab;$codeOut.Add("}`n") | Out-Null 
 			} else {
 				tab;$codeOut.Add("if (popD() $sign popD()){`n") | Out-Null 
-            	tab;$codeOut.Add("`tfunction" + $funcName[1] + "();`n") | Out-Null 
-            	tab;$codeOut.Add("}`n") | Out-Null#> 
+            	tab;$codeOut.Add("`tfunction" + $funcName + "();`n") | Out-Null 
+            	tab;$codeOut.Add("}`n") | Out-Null
             }
 			break
         } '`' { 
@@ -202,7 +200,7 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
         } '?' { 
             tab;$codeOut.Add("pushD(popM());`n") | Out-Null 
             break
-        } ';' { 
+        } ';' {
             $indent = $false
             $codeOut.Add("}`n`n") | Out-Null 
             break
@@ -256,5 +254,5 @@ $outValue = -join $codeOut
 Set-Content -Path $outPath -Value $outValue
 
 $compilePath = $path + $out #"out.exe"
-"gcc $outPath -o $compilePath" | cmd
+"gcc $outPath -o $compilePath -O3" | cmd
 #rm $outPath
