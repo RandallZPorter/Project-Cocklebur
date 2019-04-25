@@ -143,7 +143,7 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
             $retObject = getObjectName $i
             $i = $retObject[0]
 			$funcName = $retObject[1]
-			Write-Host "$funcNameDeclared called $funcName"
+			Write-Host "$funcNameDeclared called $funcName unconditionally"
 			if ($funcName -eq $funcNameDeclared){
 				$n = $codeOut.IndexOf("void function$funcName() {`n")
 		    	$declaration = "while (1){`n"
@@ -174,10 +174,21 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
             }
             $retObject = getObjectName $i
             $i = $retObject[0]
-            tab;$codeOut.Add("if (popD() $sign popD()){`n") | Out-Null 
-            tab;$codeOut.Add("`tfunction" + $retObject[1] + "();`n") | Out-Null 
-            tab;$codeOut.Add("}`n") | Out-Null 
-            break
+			$funcName = $retObject[1]
+			Write-Host "$funcNameDeclared called $funcName conditionally"
+
+			if ($funcName -eq $funcNameDeclared){
+				tab;$codeOut.Add("} while (popD() $sign popD());`n") | Out-Null
+				$n = $codeOut.IndexOf("void function$funcName() {`n")
+		    	$declaration = "do {`n"
+    			$codeOut.Insert($n + 1, $declaration)
+	            #tab;$codeOut.Add("}`n") | Out-Null 
+			} else {
+				tab;$codeOut.Add("if (popD() $sign popD()){`n") | Out-Null 
+            	tab;$codeOut.Add("`tfunction" + $funcName[1] + "();`n") | Out-Null 
+            	tab;$codeOut.Add("}`n") | Out-Null#> 
+            }
+			break
         } '`' { 
             tab;$codeOut.Add($t + "con0 = popD();`n") | Out-Null
             tab;$codeOut.Add($t + "con1 = popD();`n") | Out-Null 

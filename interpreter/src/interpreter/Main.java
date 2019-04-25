@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class Main {
-	
+
 	private static LinkedList<Object> STACK = new LinkedList<Object>();
 	private static LinkedList<Object> MATH_STACK = new LinkedList<Object>();
 	private static LinkedList<Integer> CALL_STACK = new LinkedList<Integer>();
@@ -19,7 +19,7 @@ public class Main {
 	private static CharSequence code = ",..";
 	private static int returnIndex;
 	private static int i;
-	
+
 	public static void main(String args[]){
 		loadCode();
 		CharSequence obName = "";
@@ -68,18 +68,16 @@ public class Main {
 					i--;
 					break;
 				case '!':
-					
+
 					i++;
 					char nextToken = t();
 					boolean isNewLine = nextToken == 'v';
 					if (!isNewLine) { i--; }
-					
 					i++;
 					nextToken = t();
 					boolean isDoAscii = nextToken == '.';
 					if (!isDoAscii) { i--; }
-					
-					
+
 					String printVal = STACK.pop().toString();
 					try {
 						int intVal = new BigDecimal(printVal).intValue();
