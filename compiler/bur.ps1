@@ -4,6 +4,7 @@
 )
 $path = (Get-Location).ToString() + "\"
 $codeIn = [char[]](-join (Get-Content -Path ($path + $in) -Encoding UTF8))
+-join $codeIn
 [System.Collections.ArrayList]$codeOut = @()
 
 Function getObjectName($i) {
@@ -11,7 +12,7 @@ Function getObjectName($i) {
     while ($true){
         $i++
         $x = $codeIn[$i]
-        if ([char[]]'~@#‽`!?*$' -notcontains $x){
+        if ([char[]]'~@#‽`!?*$;' -notcontains $x){
             $objName += $x.ToString().Trim()
         } else {
             return $i, $objName
@@ -125,7 +126,7 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
             } elseif ($x -eq '$'){
                 tab
                 $x = $codeIn[$i]
-                $varName = $retObject[1]
+                $varName = "var" + $retObject[1]
                 if ($variables -notcontains $varName){
                     $variables.Add($varName) | Out-Null
                 }
@@ -138,7 +139,8 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
                 }
             }
             break
-        } '@' { 
+        } '@' {
+			Write-Host ($codeIn[$i-1]+$codeIn[$i]+$codeIn[$i+1]+$codeIn[$i+2]+$codeIn[$i+3]+$codeIn[$i+4]+$codeIn[$i+5])
             $retObject = getObjectName $i
             $i = $retObject[0]
 			$funcName = $retObject[1]
@@ -233,7 +235,9 @@ for ($i = 0; $i -lt $codeIn.Count; $i++){
             $x = $codeIn[$i]
             if ($x -eq 'v'){
                 tab;$codeOut.Add("printf(`"\n`");`n") | Out-Null
-            }
+            } else {
+				$i--
+			}
             tab;$codeOut.Add("fflush(stdout);`n") | Out-Null
             break
         }
