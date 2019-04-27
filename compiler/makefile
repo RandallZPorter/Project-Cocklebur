@@ -8,3 +8,5 @@ obfus:	obfus.bur
 	powershell "./bur.ps1 -in obfus.bur -out run.exe"
 truth:	truth.bur
 	powershell "./bur.ps1 -in truth.bur -out run.exe"
+tiny:	tiny.bur
+	powershell "./bur.ps1 -in tiny.bur -out run.exe"
