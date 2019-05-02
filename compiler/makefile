@@ -10,3 +10,5 @@ truth:	truth.bur
 	powershell "./bur.ps1 -in truth.bur -out run.exe"
 tiny:	tiny.bur
 	powershell "./bur.ps1 -in tiny.bur -out run.exe"
+fizz:	fizz.bur
+	powershell "./bur.ps1 -in fizz.bur -out run.exe"
