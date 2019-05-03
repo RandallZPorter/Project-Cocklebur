@@ -6,8 +6,13 @@
 //Variables
 double vara = 0.0;
 double varb = 0.0;
+double varc = 0.0;
+double vard = 0.0;
 double vare = 0.0;
 double varf = 0.0;
+double varg = 0.0;
+double varh = 0.0;
+double vari = 0.0;
 double varx = 0.0;
 double con0 = 0.0;
 double con1 = 0.0;
@@ -62,7 +67,7 @@ double popM() {
     return pop(mathStack);
 }
 
-void function0() {
+void functionaddOne() {
 do {
 	vara = popD();
 	pushD(vara);
@@ -85,7 +90,7 @@ do {
 	pushD(varb);
 }
 
-void function1() {
+void functionsubOne() {
 do {
 	vara = popD();
 	pushD(vara);
@@ -108,23 +113,71 @@ do {
 	pushD(varb);
 }
 
-void function2() {
+void functionsubtractAux() {
+do {
+	varc = popD();
+	vard = popD();
+	pushD(varc);
+	functionsubOne();
+	varc = popD();
+	pushD(vard);
+	functionsubOne();
+	vard = popD();
+	pushD(vard);
+	pushD(varc);
+	pushD(0);
+	pushD(vard);
+	} while (popD() > popD());
+}
+
+void functionsubtract() {
+	functionsubtractAux();
+	varc = popD();
+	vard = popD();
+	pushD(varc);
+}
+
+void functionaddAux() {
+do {
+	varc = popD();
+	vard = popD();
+	pushD(varc);
+	functionaddOne();
+	varc = popD();
+	pushD(vard);
+	functionsubOne();
+	vard = popD();
+	pushD(vard);
+	pushD(varc);
+	pushD(0);
+	pushD(vard);
+	} while (popD() > popD());
+}
+
+void functionadd() {
+	functionaddAux();
+	varc = popD();
+	vard = popD();
+	pushD(varc);
+}
+
+void functiondivisableTRUE() {
 	vare = popD();
 	varf = popD();
 	pushD(1);
 }
 
-void function3() {
+void functiondivisableFALSE() {
 	vare = popD();
 	varf = popD();
 	pushD(0);
 }
 
-void function5() {
+void functiondivisableLOOP() {
 do {
 	vare = popD();
 	pushD(vare);
-	function1();
+	functionsubOne();
 	vare = popD();
 	pushD(vare);
 	pushD(0);
@@ -132,7 +185,7 @@ do {
 	} while (popD() > popD());
 }
 
-void function4() {
+void functiondivisableELSE() {
 	vare = popD();
 	varf = popD();
 	pushD(varf);
@@ -146,28 +199,28 @@ void function4() {
 		pushM(con1);
 	}
 	pushD(popM());
-	function5();
+	functiondivisableLOOP();
 	vare = popD();
 	pushD(vare);
 	pushD(vare);
 	pushD(0);
 	pushD(vare);
 	if (popD() == popD()){
-		function2();
+		functiondivisableTRUE();
 	}
 	pushD(0);
 	pushD(vare);
 	if (popD() > popD()){
-		function3();
+		functiondivisableFALSE();
 	}
 	pushD(0);
 	pushD(vare);
 	if (popD() < popD()){
-		function3();
+		functiondivisableFALSE();
 	}
 }
 
-void function6() {
+void functiondivisable() {
 	vare = popD();
 	varf = popD();
 	pushD(varf);
@@ -175,75 +228,73 @@ void function6() {
 	pushD(0);
 	pushD(varf);
 	if (popD() == popD()){
-		function2();
+		functiondivisableTRUE();
 	}
 	pushD(1);
 	pushD(varf);
 	if (popD() == popD()){
-		function2();
+		functiondivisableTRUE();
 	}
 	pushD(1);
 	pushD(varf);
 	if (popD() > popD()){
-		function4();
+		functiondivisableELSE();
 	}
 }
 
-void function7() {
-	pushD(102);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
-	pushD(105);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
-	pushD(122);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
-	pushD(122);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
+void functionprimeTRUE() {
+	pushD(1);
 }
 
-void function8() {
-	pushD(98);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
-	pushD(117);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
-	pushD(122);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
-	pushD(122);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
-	fflush(stdout);
+void functionprimeFALSE() {
+	pushD(0);
 }
 
-void function9() {
+void functionprimeLOOP() {
+do {
+	varg = popD();
+	varh = popD();
+	pushD(varh);
+	functionaddOne();
+	varh = popD();
+	pushD(varh);
+	pushD(varg);
+	pushD(varh);
+	pushD(varg);
+	functiondivisable();
+	vari = popD();
+	pushD(0);
+	pushD(vari);
+	} while (popD() == popD());
+}
+
+void functionprime() {
+	varg = popD();
+	pushD(1);
+	pushD(varg);
+	functionprimeLOOP();
+	varg = popD();
+	varh = popD();
+	pushD(varh);
+	pushD(varg);
+	if (popD() == popD()){
+		functionprimeTRUE();
+	}
+	pushD(varh);
+	pushD(varg);
+	if (popD() < popD()){
+		functionprimeFALSE();
+	}
+	pushD(varh);
+	pushD(varg);
+	if (popD() > popD()){
+		functionprimeFALSE();
+	}
+}
+
+void functionprintALL() {
+do {
+	varx = popD();
 	pushD(varx);
 	
 				printVar = popD();
@@ -253,65 +304,32 @@ void function9() {
 					printf("%lf", printVar);
 				}
 				
-	fflush(stdout);
-}
-
-void functiona() {
-	pushD(5);
-	pushD(varx);
-	function6();
-	pushD(0);
-	if (popD() == popD()){
-		function9();
-	}
-}
-
-void functionb() {
-do {
-	varx = popD();
-	pushD(3);
-	pushD(varx);
-	function6();
-	pushD(1);
-	if (popD() == popD()){
-		function7();
-	}
-	pushD(5);
-	pushD(varx);
-	function6();
-	pushD(1);
-	if (popD() == popD()){
-		function8();
-	}
-	pushD(3);
-	pushD(varx);
-	function6();
-	pushD(0);
-	if (popD() == popD()){
-		functiona();
-	}
-	pushD(0);
-	
-				printVar = popD();
-				printf("%c", (char)(int)printVar);
-				
 	printf("\n");
 	fflush(stdout);
+	pushD(0);
 	pushD(varx);
-	function0();
+	} while (popD() > popD());
+}
+
+void functionloop() {
+do {
+	functionsubOne();
 	varx = popD();
 	pushD(varx);
-	pushD(100);
 	pushD(varx);
-	} while (popD() <= popD());
+	pushD(2);
+	pushD(varx);
+	} while (popD() > popD());
 }
 
 
 void main() {
 	stack = createStack(1000);
 	mathStack = createStack(1000);
-	pushD(1);
-	functionb();
+	pushD(20);
+	functionloop();
+	varx = popD();
+	functionprintALL();
 }
 
 

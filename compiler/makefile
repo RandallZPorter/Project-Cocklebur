@@ -12,3 +12,5 @@ tiny:	tiny.bur
 	powershell "./bur.ps1 -in tiny.bur -out run.exe"
 fizz:	fizz.bur
 	powershell "./bur.ps1 -in fizz.bur -out run.exe"
+sieve:	sieve.bur
+	powershell "./bur.ps1 -in sieve.bur -out run.exe"
